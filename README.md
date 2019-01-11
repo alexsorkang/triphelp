@@ -1,10 +1,9 @@
 # README
 
 Make sure you have the following (it should be safe to get the latest versions of all of the following):
-1. Rails ~v5.2
-2. Ruby v2.5.3
-3. npm >5.2 (mine is 6.4.1)
-4. yarn
+1. `Ruby ~v2.5`
+2. `npm > 5.2` (mine is 6.4.1)
+3. yarn
 
 To start the server run the following commands then go to localhost:3000
 1. `rails s -p 3001` in `/triphelp`. This runs the server on port 3001 vs the default 3000
