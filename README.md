@@ -1,10 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Make sure you have the following (it should be safe to get the latest versions of all of the following):
+1. Rails ~v5.2
+2. Ruby v2.5.3
+3. npm >5.2 (mine is 6.4.1)
+4. yarn
 
-Things you may want to cover:
+To start the server run the following commands then go to localhost:3000
+1. `rails s -p 3001` in `/triphelp`. This runs the server on port 3001 vs the default 3000
+2. yarn start in `/triphelp/client`
 
-https://x-team.com/blog/get-in-full-stack-shape-with-rails-5-1-webpacker-and-reactjs/
-https://blog.heroku.com/a-rock-solid-modern-web-stack
+We are using rails in api mode for the backend and react for the frontend. Here are the examples I based the setup on:
+`https://x-team.com/blog/get-in-full-stack-shape-with-rails-5-1-webpacker-and-reactjs/`
+`https://blog.heroku.com/a-rock-solid-modern-web-stack`
+```
+if using sublime, change default spacing settings for each file type
+{
+  "tab_size": 2,
+  "translate_tabs_to_spaces": true,
+  "detect_indentation": false
+}
+```
 * ...
