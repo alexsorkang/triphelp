@@ -12,6 +12,7 @@ To start the server run the following commands then go to localhost:3000
 We are using rails in api mode for the backend and react for the frontend. Here are the examples I based the setup on:
 1. <https://x-team.com/blog/get-in-full-stack-shape-with-rails-5-1-webpacker-and-reactjs/>
 2. <https://blog.heroku.com/a-rock-solid-modern-web-stack>
+3. as a result, all the views is handled in the `/client` directory (react)
 
 We use semantic ui (we are using this for styling instead of bootstrap)
 1. https://react.semantic-ui.com/
