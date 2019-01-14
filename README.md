@@ -16,12 +16,12 @@ We are using rails in api mode for the backend and react for the frontend. Here 
 We use semantic ui (we are using this for styling instead of bootstrap)
 1. https://react.semantic-ui.com/
 
+We are going to use 2 spaces instead of 4 spaces/tabs
 ```
-if using sublime, change default spacing settings for each file type
+if using sublime, you can change default spacing settings for each file type by going to preferences -> settings - syntax specific
 {
   "tab_size": 2,
   "translate_tabs_to_spaces": true,
   "detect_indentation": false
 }
 ```
-* ...
