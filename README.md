@@ -23,6 +23,10 @@
 #### We use semantic ui (we are using this for styling instead of bootstrap)
 1. https://react.semantic-ui.com/
 
+#### To view or edit the api keys `EDITOR="subl --wait" bin/rails credentials:edit`
+
+#### We will add a `TODO` comment for tasks that we do not want to complete now. For example, in `client/src/components/test/Test.js` we directly use the api key instead of securely storing and loading. This isn't necessary until the app in in production
+
 #### We are going to use 2 spaces instead of 4 spaces/tabs
 ```
 if using sublime, you can change default spacing settings for each file type by going to preferences -> settings - syntax specific

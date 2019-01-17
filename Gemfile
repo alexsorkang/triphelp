@@ -46,3 +46,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # gems added by alex
 gem 'devise'
+gem 'google-api-client', '~> 0.11'
