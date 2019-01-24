@@ -5,7 +5,10 @@ import LayoutHeader from './layout_header'
 
 class Layout extends Component {
   render () {
-    return <LayoutHeader/>
+    return <div>
+      <LayoutHeader/>
+      {this.props.children}
+    </div>
   }
 }
 
