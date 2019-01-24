@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Home from './components/home/Home'
-import NotFound from './components/not_found/NotFound'
-import Test from './components/test/Test'
+import Home from './components/home/home'
+import NotFound from './components/not_found/not_found'
+import NewTrip from './components/trip/new'
+import Layout from './components/layout/layout'
 
 class App extends Component {
   render () {
-    return <Router>
-      <Switch>
-        <Route path='/' exact component={Home} />
-        <Route path='/test' exact component={Test} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
+    return <Layout>
+      <Router>
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/trip/new' exact component={NewTrip} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    </Layout>
   }
 }
 
