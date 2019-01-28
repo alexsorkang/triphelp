@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Container } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 import MyTrip from './new/my_trip'
 import SearchResults from './new/search_results'

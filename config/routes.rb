@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
   	resources :trips
+    get '/search_results', to: 'trips#search_results'
   end
 
   get '*path', to: "application#fallback_index_html", constraints: ->(request) do
