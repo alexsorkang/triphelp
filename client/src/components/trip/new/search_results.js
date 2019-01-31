@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Search } from 'semantic-ui-react'
+import { Grid, Menu, Card } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
-import './grid_column.css';
+import './grid_column.css'
+import SearchBar from './search_bar/search_bar'
 
 class SearchResults extends Component {
   constructor(props) {
@@ -12,12 +13,7 @@ class SearchResults extends Component {
       items: ['placeholder']
     };
   }
-  componentDidMount() {
-    // window.fetch('/api/search_results')
-    //   .then(response => response.json())
-    //   .then(json => this.setState({isLoaded:true, items: json}))
-    //   .catch(error => this.setState({isLoaded: true, error}))
-  }
+
   render () {
     const { error, isLoaded, items } = this.state;
     const cards = items.map(item => (
@@ -35,6 +31,7 @@ class SearchResults extends Component {
     return (
       <Grid.Column textAlign='center'>
         <Menu fluid vertical className='grid_menu'>
+          <SearchBar />
           <Card.Group centered className='card_group'>
             {cards}
           </Card.Group>
