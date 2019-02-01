@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import { Search, Grid, Header, Segment, Form, Button } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { searchResults } from '../../../../actions/search_results';
+import { searchResults, searchQuery } from '../../../actions/search';
 
 const mapStateToProps = state => ({
   ...state
 })
 
 const mapDispatchToProps = dispatch => ({
-  searchResults: () => dispatch(searchResults())
+  searchResults: (result) => dispatch(searchResults(result)),
+  searchQuery: (query) => dispatch(searchQuery(query)),  
 })
 
 class SearchBar extends Component {
@@ -21,11 +22,15 @@ class SearchBar extends Component {
       items: ['placeholder']
     };
   }
+
   searchResults = (event) => {
     this.props.searchResults();
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleChange = (e, { name, value }) => {
+    this.props.searchQuery(value)
+    this.setState({ [name]: value })
+  }
 
   search = () => {
     const { query } = this.state
@@ -33,13 +38,12 @@ class SearchBar extends Component {
       .then(response => response.json())
       .then(json => {
         this.setState({isLoaded:true, items: json})
-        this.props.searchResults()
+        this.props.searchResults(json)
         }).catch(error => this.setState({isLoaded: true, error}))
   }
 
   render() {
     const { isLoading, value, results } = this.state
-    console.log(this.state)
     return (
       <Form onSubmit={this.search}>
         <Form.Group>

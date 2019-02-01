@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
 import { Grid, Menu, Card } from 'semantic-ui-react'
-// import { Link } from 'react-router-dom'
 import './grid_column.css'
+import { connect } from "react-redux";
 import SearchBar from './search_bar/search_bar'
+
+const mapStateToProps = state => ({
+  ...state
+})
 
 class SearchResults extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: ['placeholder']
-    };
+    // this.state = {
+    //   error: null,
+    //   isLoaded: false,
+    //   items: ['placeholder']
+    // };
   }
 
   render () {
-    const { error, isLoaded, items } = this.state;
+    const items = this.props.searchReducer
     const cards = items.map(item => (
         <Card
           fluid
@@ -31,7 +35,6 @@ class SearchResults extends Component {
     return (
       <Grid.Column textAlign='center'>
         <Menu fluid vertical className='grid_menu'>
-          <SearchBar />
           <Card.Group centered className='card_group'>
             {cards}
           </Card.Group>
@@ -40,4 +43,4 @@ class SearchResults extends Component {
   )}
 }
 
-export default SearchResults
+export default connect(mapStateToProps)(SearchResults)
