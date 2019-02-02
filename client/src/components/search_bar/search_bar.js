@@ -1,7 +1,8 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { searchResults, searchQuery } from '../../../actions/search';
+import { searchResults, searchQuery } from '../../actions/search';
 
 const mapStateToProps = state => ({
   ...state
@@ -14,26 +15,22 @@ const mapDispatchToProps = dispatch => ({
 
 class SearchBar extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       error: null,
       isLoaded: false,
       query: '',
       items: ['placeholder']
-    };
-  }
-
-  searchResults = (event) => {
-    this.props.searchResults();
+    }
   }
 
   handleChange = (e, { name, value }) => {
     this.props.searchQuery(value)
     this.setState({ [name]: value })
+    this.search(value)
   }
 
-  search = () => {
-    const { query } = this.state
+  search = (query) => {
     window.fetch(`/api/search_results?query=${query}`)
       .then(response => response.json())
       .then(json => {
@@ -45,12 +42,7 @@ class SearchBar extends Component {
   render() {
     const { isLoading, value, results } = this.state
     return (
-      <Form onSubmit={this.search}>
-        <Form.Group>
-          <Form.Input placeholder='search' name='query' onChange={this.handleChange} />
-          <Form.Button content='Submit' />
-        </Form.Group>
-      </Form>
+      <Input placeholder='search' icon='search' name='query' onChange={_.debounce(this.handleChange, 750, { 'maxWait': 1000 })} />
     )
   }
 }
