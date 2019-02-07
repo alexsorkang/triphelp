@@ -7,7 +7,14 @@ export const searchResults = results => dispatch => {
 
 export const searchQuery = query => dispatch => {
  dispatch({
-  type: 'SEARCH_QUERY',
-  payload: query
- })
+   type: 'SEARCH_QUERY',
+   payload: query
+  })
+}
+
+export const loadingStatus = query => dispatch => {
+ dispatch({
+   type: 'SEARCH_STATUS',
+   payload: query
+  })
 }

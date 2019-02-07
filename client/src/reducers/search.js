@@ -15,3 +15,12 @@ export const queryReducer = (state = '', action) => {
     return state
   }
 }
+
+export const loaderReducer = (state = '', action) => {
+  switch (action.type) {
+  case 'SEARCH_STATUS':
+    return action.payload
+  default:
+    return state
+  }
+}

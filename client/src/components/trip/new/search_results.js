@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Loader, Segment, Icon, Header } from 'semantic-ui-react'
+import { Grid, Menu, Card, Loader, Segment, Icon, Header, Button } from 'semantic-ui-react'
 import './grid_column.css'
 import { connect } from "react-redux";
 import SearchBar from '../../search_bar/search_bar'
@@ -11,45 +11,62 @@ const mapStateToProps = state => ({
 class SearchResults extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   error: null,
-    //   isLoaded: false,
-    //   items: ['placeholder']
-    // };
+  }
+
+  search_results () {
+    const items = this.props.searchReducer
+    const status = this.props.loaderReducer
+    if (status === 'loading') {
+      return (<Segment placeholder><Loader active inline='centered' /></Segment>)
+    } else if (status === 'success') {
+      const cards = items.map(item => (
+          <Card fluid key={item} className='card_margin'>
+            <Card.Content>
+              <Card.Header>{item}</Card.Header>
+              <Card.Meta>this is sample meta</Card.Meta>
+              <Card.Description>
+                this is sample description
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <Button basic color='green'>
+                Add
+              </Button>
+              <Button basic color='red'>
+                View
+              </Button>
+            </Card.Content>
+          </Card>
+        )
+      )
+      return (<Menu fluid vertical className='grid_menu'>
+        <Card.Group centered className='card_group'>
+          {cards}
+        </Card.Group>
+      </Menu>)
+    } else if (status === 'empty') {
+      return (<Segment placeholder>
+        <Header icon>
+          <Icon name='search' />
+          No Results. Try another search term.
+        </Header>
+        <SearchBar />
+      </Segment>)
+    } else {
+      return (<Segment placeholder>
+        <Header icon>
+          <Icon name='search' />
+          Search
+        </Header>
+        <SearchBar />
+      </Segment>)
+    }
   }
 
   render () {
-    const items = this.props.searchReducer
-    const cards = items.map(item => (
-        <Card
-          fluid
-          key={item}
-          href='#card-example-link-card'
-          header={item}
-          meta='Friend'
-          description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-          className='card_margin'
-        />
-      )
-    )
-    const loader = <Segment placeholder><Loader active inline='centered' /></Segment>
-    const card = (<Menu fluid vertical className='grid_menu'>
-                    <Card.Group centered className='card_group'>
-                      {cards}
-                    </Card.Group>
-                  </Menu>)
-    const empty = (<Segment placeholder>
-                    <Header icon>
-                      <Icon name='search' />
-                      Search
-                    </Header>
-                    <SearchBar />
-                  </Segment>)
     return (
       <Grid.Column textAlign='center'>
-        {loader}
-        {card}
-        {empty}
+        {this.search_results()}
       </Grid.Column>
   )}
 }
