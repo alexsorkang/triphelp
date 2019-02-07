@@ -3,6 +3,7 @@ import { Grid, Menu, Card, Loader, Segment, Icon, Header, Button } from 'semanti
 import './grid_column.css'
 import { connect } from "react-redux";
 import SearchBar from '../../search_bar/search_bar'
+import SearchButtons from './card/search_buttons'
 
 const mapStateToProps = state => ({
   ...state
@@ -29,12 +30,7 @@ class SearchResults extends Component {
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              <Button basic color='green'>
-                Add
-              </Button>
-              <Button basic color='red'>
-                View
-              </Button>
+              <SearchButtons />
             </Card.Content>
           </Card>
         )
