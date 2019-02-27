@@ -4,7 +4,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.google[:jwt]
+    jwt.secret = Rails.application.credentials[:jwt]
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
