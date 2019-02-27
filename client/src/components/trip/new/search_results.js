@@ -16,7 +16,7 @@ class SearchResults extends Component {
 
   search_results () {
     const items = this.props.searchReducer
-    const status = this.props.loaderReducer
+    const status = this.props.queryReducer.status
     if (status === 'loading') {
       return (<Segment placeholder><Loader active inline='centered' /></Segment>)
     } else if (status === 'success') {

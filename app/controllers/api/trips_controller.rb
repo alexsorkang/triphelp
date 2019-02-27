@@ -9,6 +9,11 @@ class Api::TripsController < ApplicationController
     render json: @trip.to_json
   end
 
+  def update
+    # @trip = Trip.find(params[:id])
+    # render json: @trip.to_json
+  end
+
   def search_results
     # query = 'Koreatown Los Angeles CA'
     query = params[:query]

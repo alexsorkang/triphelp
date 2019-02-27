@@ -44,6 +44,10 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# gems added by alex
-gem 'devise'
+# ALL GEMS BELOW ADDED BY ME
 gem 'google_places'
+
+# user auth
+gem 'devise'
+gem 'devise-jwt'
+
