@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  signIn: (email, password) => dispatch(signIn(email, password)),
+  signIn: (email, password) => dispatch(signIn(email, password))
   // searchQuery: (query, status) => dispatch(searchQuery(query, status))
 })
 
@@ -27,19 +27,10 @@ class SignIn extends Component {
   }
 
   handleSubmit = (e, { name, value }) => {
-    console.log(4444)
     e.preventDefault();
     this.setState({ submitted: true });
     const { email, password } = this.state;
     this.props.signIn(email, password)
-    // axios.get(url).then(response => {
-    //   if (response.data.length) {
-    //     this.props.searchQuery(query, 'success')
-    //   } else {
-    //     this.props.searchQuery(query, 'empty')
-    //   }
-    //   this.props.searchResults(response.data)
-    // })
   }
 
   handleChange = e => {
@@ -87,12 +78,6 @@ class SignIn extends Component {
         </Grid>
       </div>
     )
-
-
-
-
-
-
   }
 }
 
