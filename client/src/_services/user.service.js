@@ -4,11 +4,12 @@ import axios from 'axios';
 export const userService = {
     signIn,
     signOut,
+    signUp,
     getAll
 };
 
 function signIn(email, password) {
-    // curl -XPOST -H 'Content-Type: application/json' http://localhost:3000/login -d '{"user": {"email": "test@test.com", "password": "password" }}'
+    // curl -XPOST -H 'Content-Type: application/json' http://localhost:3001/login -d '{"user": {"email": "test@test.com", "password": "password" }}'
     const url = `/login`
     return axios.post(url, {'user': { email, password }})
       .then(response => {
@@ -24,8 +25,33 @@ function signIn(email, password) {
         }
       }, error => {
         signOut()
-        // window.location.reload(true)
         console.log(error)
+        return Promise.reject(error);
+    })
+}
+
+function signUp(email, password) {
+    const url = `/signup`
+    return axios.post(url, {'user': { email, password }})
+      .then(response => {
+        if (response.status === 200) {
+          return signIn(email, password)
+            .then(
+              user => {
+                return user
+              },
+              error => {
+                return Promise.reject(error);
+              }
+            )
+        } else {
+          window.location.reload(true)
+          const error = response.error
+          return Promise.reject(error);
+        }
+      }, error => {
+        console.log(error)
+        return Promise.reject(error);
     })
 }
 

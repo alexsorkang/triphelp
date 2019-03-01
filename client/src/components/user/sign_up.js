@@ -2,19 +2,18 @@ import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment, Container } from 'semantic-ui-react'
 import axios from 'axios'
 import { connect } from 'react-redux';
-import { signIn } from '../../actions/user';
-import { Link } from 'react-router-dom'
+import { signUp } from '../../actions/user';
 
 const mapStateToProps = state => ({
   ...state
 })
 
 const mapDispatchToProps = dispatch => ({
-  signIn: (email, password) => dispatch(signIn(email, password))
+  signUp: (email, password) => dispatch(signUp(email, password))
   // searchQuery: (query, status) => dispatch(searchQuery(query, status))
 })
 
-class SignIn extends Component {
+class SignUp extends Component {
   
   constructor(props) {
     super(props)
@@ -31,7 +30,7 @@ class SignIn extends Component {
     e.preventDefault();
     this.setState({ submitted: true });
     const { email, password } = this.state;
-    this.props.signIn(email, password)
+    this.props.signUp(email, password)
   }
 
   handleChange = e => {
@@ -41,11 +40,11 @@ class SignIn extends Component {
 
   render () {
     return (
-      <div className='loginForm'>
+      <div className='registerForm'>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='grey' textAlign='center'>
-              Log-in to your account
+              Create your account
             </Header>
             <Form size='large' onSubmit={this.handleSubmit}>
               <Segment stacked>
@@ -68,13 +67,10 @@ class SignIn extends Component {
                 />
 
                 <Button color='grey' fluid size='large'>
-                  Login
+                  Create Account
                 </Button>
               </Segment>
             </Form>
-            <Message>
-              New to us? <Link to='/register'>Sign Up</Link>
-            </Message>
           </Grid.Column>
         </Grid>
       </div>
@@ -82,4 +78,4 @@ class SignIn extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

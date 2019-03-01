@@ -7,7 +7,26 @@ export const signIn = (email, password) => {
     userService.signIn(email, password)
       .then(
         user => {
-          console.log(user)
+          dispatch(success(user));
+        },
+        error => {
+          dispatch(failure(error));
+        }
+      );
+  };
+
+  function request(user) { return { type: 'SIGN_IN', user } }
+  function success(user) { return { type: 'SIGN_IN_SUCCESS', user } }
+  function failure(error) { return { type: 'SIGN_IN_ERROR', error } }
+}
+
+export const signUp = (email, password) => {
+  return dispatch => {
+    dispatch(request({ email, password }));
+
+    userService.signUp(email, password)
+      .then(
+        user => {
           dispatch(success(user));
           // history.push('/');
         },
@@ -18,9 +37,9 @@ export const signIn = (email, password) => {
       );
   };
 
-  function request(user) { return { type: 'SIGN_IN', user } }
-  function success(user) { return { type: 'SIGN_IN_SUCCESS', user } }
-  function failure(error) { return { type: 'SIGN_IN_ERROR', error } }
+  function request(user) { return { type: 'SIGN_UP', user } }
+  function success(user) { return { type: 'SIGN_UP_SUCCESS', user } }
+  function failure(error) { return { type: 'SIGN_UP_ERROR', error } }
 }
 
 export const signOut = () => {

@@ -15,6 +15,18 @@ export const userReducer = (state = initialState, action) => {
         };
     case 'SIGN_IN_ERROR':
         return {};
+    case 'SIGN_UP':
+        return {
+        loggingIn: true,
+        user: action.user
+        };
+    case 'SIGN_UP_SUCCESS':
+        return {
+        loggedIn: true,
+        user: action.user
+        };
+    case 'SIGN_UP_ERROR':
+        return {};
     case 'SIGN_OUT':
         return {};
     default:
