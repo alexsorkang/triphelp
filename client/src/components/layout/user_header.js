@@ -22,7 +22,6 @@ class UserHeader extends Component {
   }
   userHeader() {
     const loggedIn = this.props.userReducer.loggedIn
-    console.log(this.props.userReducer)
     if (!loggedIn) {
       return (<Button as={Link} to='/login' basic color='grey' content='Sign In' size='huge'/>)
     } else {

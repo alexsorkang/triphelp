@@ -15,12 +15,12 @@ class SearchResults extends Component {
   }
 
   search_results () {
-    const items = this.props.searchReducer
-    const status = this.props.queryReducer.status
-    if (status === 'loading') {
+    const search = this.props.searchReducer
+    const status = search.type
+    if (status === 'SEARCH') {
       return (<Segment placeholder><Loader active inline='centered' /></Segment>)
-    } else if (status === 'success') {
-      const cards = items.map(item => (
+    } else if (status === 'SEARCH_SUCCESS') {
+      const cards = search.results.map(item => (
           <Card fluid key={item} className='card_margin'>
             <Card.Content>
               <Card.Header>{item}</Card.Header>
@@ -40,7 +40,7 @@ class SearchResults extends Component {
           {cards}
         </Card.Group>
       </Menu>)
-    } else if (status === 'empty') {
+    } else if (status === 'SEARCH_ERROR') {
       return (<Segment placeholder>
         <Header icon>
           <Icon name='search' />

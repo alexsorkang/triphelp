@@ -1,13 +1,14 @@
-export const searchResults = results => dispatch => {
- dispatch({
-  type: 'SEARCH_RESULTS',
-  payload: results
- })
-}
+import { tripService } from '../_services/trip.service'
 
-export const searchQuery = (query, status) => dispatch => {
-  dispatch({
-    type: 'SEARCH_QUERY',
-    payload: {query: query, status: status}
+export const search = (query, status) => dispatch => {
+  dispatch(request(query))
+  tripService.search(query).then(response => {
+    dispatch(success(query, response))
+  }, error => {
+    dispatch(failure(query, error))
   })
+
+  function request(query) { return { type: 'SEARCH', query: query} }
+  function success(query, results) { return { type: 'SEARCH_SUCCESS', query: query, results} }
+  function failure(query, error) { return { type: 'SEARCH_ERROR', query: query, error} }
 }
