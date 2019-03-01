@@ -16,18 +16,16 @@ const mapDispatchToProps = dispatch => ({
 class SearchBar extends Component {
   constructor(props) {
     super(props)
+    this.state = {size: props.size}
   }
 
   handleChange = (e, { name, value }) => {
     this.props.search(value)
   }
 
-  search = (query) => {
-  }
-
   render() {
     return (
-      <Input placeholder='search' icon='search' name='query' onChange={_.debounce(this.handleChange, 750, { 'maxWait': 1000 })} />
+      <Input placeholder='search' icon='search' size={this.state.size} name='query' onChange={_.debounce(this.handleChange, 750, { 'maxWait': 1000 })} />
     )
   }
 }

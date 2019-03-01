@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const tripService = {
+export const itineraryService = {
     search
 };
 

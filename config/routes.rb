@@ -12,8 +12,8 @@ Rails.application.routes.draw do
              }
 
   namespace :api, defaults: { format: :json } do
-  	resources :trips
-    get '/search_results', to: 'trips#search_results'
+  	resources :itineraries
+    get '/search_results', to: 'itineraries#search_results'
   end
 
 

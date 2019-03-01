@@ -1,11 +1,12 @@
-class Api::TripsController < ApplicationController
+class Api::ItinerariesController < ApplicationController
+  
   def index
-    @trips = Trip.all
+    @trips = Itinerary.all
     render json: @trips.to_json
   end
 
   def show
-    @trip = Trip.find(params[:id])
+    @trip = Itinerary.find(params[:id])
     render json: @trip.to_json
   end
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Menu, Card } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 
-class MyTrip extends Component {
+class MyItinerary extends Component {
   render () {
     return (
       <Grid.Column textAlign='center'>
@@ -46,4 +46,4 @@ class MyTrip extends Component {
   )}
 }
 
-export default MyTrip
+export default MyItinerary
