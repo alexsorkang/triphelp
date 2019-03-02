@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Router, Route, Switch } from 'react-router-dom'
+import { history } from './_helpers/history';
 import Home from './components/home/home'
 import NotFound from './components/not_found/not_found'
 import NewItinerary from './components/itinerary/new'
@@ -8,9 +9,10 @@ import Layout from './components/layout/layout'
 import SignIn from './components/user/sign_in'
 import SignUp from './components/user/sign_up'
 
+
 class App extends Component {
   render () {
-    return <Router>
+    return <Router history={history}>
       <Layout>
         <Switch>
           <Route path='/' exact component={Home} />

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import { searchReducer, queryReducer } from './search';
+import { searchReducer } from './search';
+import { itineraryReducer } from './itinerary';
 import { userReducer, getAllReducer } from './user'
 export default combineReducers({
   searchReducer,
   userReducer,
-  getAllReducer
+  getAllReducer,
+  itineraryReducer
 });

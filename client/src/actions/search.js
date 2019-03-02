@@ -1,8 +1,8 @@
-import { itineraryService } from '../_services/itinerary.service'
+import { searchService } from '../_services/search.service'
 
 export const search = (query, status) => dispatch => {
   dispatch(request(query))
-  itineraryService.search(query).then(response => {
+  searchService.search(query).then(response => {
     dispatch(success(query, response))
   }, error => {
     dispatch(failure(query, error))

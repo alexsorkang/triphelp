@@ -1,7 +1,7 @@
 class Api::ItinerariesController < ApplicationController
-  
+  before_action :authenticate_user!
   def index
-    @trips = Itinerary.all
+    @trips = current_user.itineraries
     render json: @trips.to_json
   end
 

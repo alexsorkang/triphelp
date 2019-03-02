@@ -1,4 +1,5 @@
 import { userService } from '../_services/user.service'
+import { history } from '../_helpers/history';
 
 export const signIn = (email, password) => {
   return dispatch => {
@@ -8,6 +9,7 @@ export const signIn = (email, password) => {
       .then(
         user => {
           dispatch(success(user));
+          history.push('/');
         },
         error => {
           dispatch(failure(error));
@@ -28,7 +30,7 @@ export const signUp = (email, password) => {
       .then(
         user => {
           dispatch(success(user));
-          // history.push('/');
+          history.push('/');
         },
         error => {
           dispatch(failure(error));
@@ -44,6 +46,7 @@ export const signUp = (email, password) => {
 
 export const signOut = () => {
   userService.signOut();
+  history.push('/login');
   return { type: 'SIGN_OUT' };
 }
 

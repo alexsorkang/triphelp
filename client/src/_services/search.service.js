@@ -1,22 +1,23 @@
 import axios from 'axios';
 import { authHeader } from '../_helpers/auth-header';
 
-export const itineraryService = {
-    my_itineraries
+export const searchService = {
+    search
 };
 
-function my_itineraries() {
+function search(query) {
   const requestOptions = {
       // method: 'GET',
       headers: {
                   'Content-Type': 'application/json',
                   'Authorization': authHeader()
                }
+      // body: JSON.stringify({ query })
   };
 
-  const url = `/api/itineraries`
+  const url = `/api/search_results?query=${query}`
   return axios.get(url, requestOptions).then(response => {
-    if (response.status === 200) {
+    if (response.data.length) {
       return response.data
     } else {
       return Promise.reject(response.error)

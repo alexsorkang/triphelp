@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Input } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { search } from '../../actions/search';
