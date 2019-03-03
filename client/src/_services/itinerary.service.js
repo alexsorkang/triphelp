@@ -19,10 +19,14 @@ function my_itineraries() {
     if (response.status === 200) {
       return response.data
     } else {
+      console.log(1)
+      console.log(response.error)
       return Promise.reject(response.error)
     }
   }, 
   error => {
+    console.log(2)
+    console.log(error)
     return Promise.reject(error)
   })
 }

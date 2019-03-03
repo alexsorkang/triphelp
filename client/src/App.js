@@ -4,6 +4,7 @@ import { history } from './_helpers/history';
 import Home from './components/home/home'
 import NotFound from './components/not_found/not_found'
 import NewItinerary from './components/itinerary/new'
+import EditItinerary from './components/itinerary/edit'
 import MyItineraries from './components/itinerary/my_itineraries'
 import Layout from './components/layout/layout'
 import SignIn from './components/user/sign_in'
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path='/my_itineraries' exact component={MyItineraries} />
           <Route path='/register' exact component={SignUp} />
           <Route path='/itinerary/new' exact component={NewItinerary} />
+          <Route path='/itinerary/edit/:id' component={EditItinerary} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

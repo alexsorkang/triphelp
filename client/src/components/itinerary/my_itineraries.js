@@ -3,10 +3,6 @@ import { Table, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { myItineraries } from '../../actions/itinerary';
-// import isLoggedIn from '../../_helpers/is_logged_in'
-// import MyItinerary from './new/my_itinerary'
-// import SearchResults from './new/search_results'
-// import Map from './new/map'
 
 const mapStateToProps = state => ({
   ...state
@@ -23,12 +19,18 @@ class MyItineraries extends Component {
 
   itineraries () {
     const my_itineraries = this.props.itineraryReducer
+    console.log(my_itineraries)
     if (my_itineraries.itineraries) {
       return my_itineraries.itineraries.map(item => (
         <Table.Row key={item.name}>
           <Table.Cell>{item.name}</Table.Cell>
           <Table.Cell>Approved</Table.Cell>
           <Table.Cell>Jamie was not interested in purchasing our product.</Table.Cell>
+          <Table.Cell>
+            <Button icon as={Link} to={'/itinerary/' + item.id} floated='right' basic color='grey'>
+              <Icon name='edit' />
+            </Button>
+          </Table.Cell>
         </Table.Row>)
       )
     } else {
