@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Loader, Segment, Icon, Header, Button } from 'semantic-ui-react'
+import { Grid, Menu, Card, Loader, Segment, Icon, Header, Button, Ref } from 'semantic-ui-react'
 import './grid_column.css'
-import { connect } from "react-redux";
 import SearchBar from '../../search_bar/search_bar'
 import SearchButtons from './card/search_buttons'
+import { connect } from 'react-redux';
+import { editItinerary } from '../../../actions/itinerary';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const mapStateToProps = state => ({
   ...state
 })
 
+const mapDispatchToProps = dispatch => ({
+  editItinerary: (itinerary) => dispatch(editItinerary(itinerary))
+})
+
 class SearchResults extends Component {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   items: getItems(10),
+    //   selected: getItems(5, 10)
+    // };
   }
 
   search_results () {
@@ -20,26 +30,41 @@ class SearchResults extends Component {
     if (status === 'SEARCH') {
       return (<Segment placeholder><Loader active inline='centered' /></Segment>)
     } else if (status === 'SEARCH_SUCCESS') {
-      const cards = search.results.map(item => (
-          <Card fluid key={item} className='card_margin'>
-            <Card.Content>
-              <Card.Header>{item}</Card.Header>
-              <Card.Meta>this is sample meta</Card.Meta>
-              <Card.Description>
-                this is sample description
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <SearchButtons />
-            </Card.Content>
-          </Card>
-        )
+      console.log(search.results)
+      const cards = search.results.map((item, index) => (
+        <Draggable
+          key={item}
+          draggableId={item}
+          index={index}>
+          {(provided, snapshot) => (
+            <Ref innerRef={provided.innerRef}>
+              <Card
+                fluid key={item} className='card_margin'
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+              >
+                <Card.Content>
+                  <Card.Header>{item}</Card.Header>
+                  <Card.Meta>this is sample meta</Card.Meta>
+                  <Card.Description>
+                    this is sample description
+                  </Card.Description>
+                </Card.Content>
+              </Card>
+            </Ref>
+          )}
+        </Draggable>)
       )
-      return (<Menu fluid vertical className='grid_menu'>
-        <Card.Group centered className='card_group'>
-          {cards}
-        </Card.Group>
-      </Menu>)
+      return (<Droppable droppableId="droppable2">
+                {(provided, snapshot) => (
+                  <div ref={provided.innerRef}>
+                    <Menu fluid vertical className='grid_menu'>
+                      <Card.Group centered className='card_group'>
+                        {cards}
+                      </Card.Group>
+                    </Menu>
+                  </div>)}
+              </Droppable>)
     } else if (status === 'SEARCH_ERROR') {
       return (<Segment placeholder>
         <Header icon>
@@ -67,4 +92,4 @@ class SearchResults extends Component {
   )}
 }
 
-export default connect(mapStateToProps)(SearchResults)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults)

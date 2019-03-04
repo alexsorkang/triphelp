@@ -1,49 +1,66 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card } from 'semantic-ui-react'
+import { Grid, Menu, Card, Ref } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { connect } from 'react-redux';
+import { editItinerary, fetchItinerary } from '../../../actions/itinerary';
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+const mapDispatchToProps = dispatch => ({
+  editItinerary: (itinerary) => dispatch(editItinerary(itinerary)),
+  fetchItinerary: (itinerary) => dispatch(fetchItinerary(itinerary))
+})
 
 class MyItinerary extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchItinerary()
+  }
+
   render () {
+    const items = this.props.fetchItineraryReducer.itinerary || []
     return (
       <Grid.Column textAlign='center'>
-        <Menu fluid vertical className='grid_menu'>
-          <Card.Group centered className='card_group'>
-            <Card
-              fluid
-              href='#card-example-link-card'
-              header='My first event'
-              meta='Friend'
-              description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-              className='card_margin'
-            />
-            <Card
-              fluid
-              href='#card-example-link-card'
-              header='Second thing to do'
-              meta='Friend'
-              description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-              className='card_margin'
-            />
-            <Card
-              fluid
-              href='#card-example-link-card'
-              header='Third event'
-              meta='Friend'
-              description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-              className='card_margin'
-            />
-            <Card
-              fluid
-              href='#card-example-link-card'
-              header='Last event of the day'
-              meta='Friend'
-              description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-              className='card_margin'
-            />
-          </Card.Group>
-        </Menu>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot) => (
+            <Menu fluid vertical className='grid_menu'>
+              <Card.Group centered className='card_group'>
+                <div ref={provided.innerRef}>
+                  {items.map((item, index) => (
+                    <Draggable
+                      key={item.id}
+                      draggableId={item.id}
+                      index={index}>
+                      {(provided, snapshot) => (
+                        <Ref innerRef={provided.innerRef}>
+                          <Card
+                            fluid
+                            href='#card-example-link-card'
+                            header={item.content}
+                            meta='Friend'
+                            description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
+                            className='card_margin'
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          />
+                        </Ref>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              </Card.Group>
+            </Menu>
+          )}
+        </Droppable>
       </Grid.Column>
   )}
 }
 
-export default MyItinerary
+export default connect(mapStateToProps, mapDispatchToProps)(MyItinerary)

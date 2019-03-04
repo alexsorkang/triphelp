@@ -18,8 +18,7 @@ class MyItineraries extends Component {
   }
 
   itineraries () {
-    const my_itineraries = this.props.itineraryReducer
-    console.log(my_itineraries)
+    const my_itineraries = this.props.itinerariesReducer
     if (my_itineraries.itineraries) {
       return my_itineraries.itineraries.map(item => (
         <Table.Row key={item.name}>

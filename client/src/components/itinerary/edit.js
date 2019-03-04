@@ -5,13 +5,16 @@ import MyItinerary from './new/my_itinerary'
 import SearchResults from './new/search_results'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Map from './new/map'
+import { connect } from 'react-redux';
+import { editItinerary, fetchItinerary } from '../../actions/itinerary';
 
-// fake data generator
-const getItems = (count, offset = 0) =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k + offset}`,
-    content: `item ${k + offset}`
-  }));
+const mapStateToProps = state => ({
+  ...state
+})
+
+const mapDispatchToProps = dispatch => ({
+  editItinerary: (itinerary) => dispatch(editItinerary(itinerary))
+})
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -39,161 +42,60 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250
-});
-
 class EditItinerary extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      items: getItems(10),
-      selected: getItems(5, 10)
-    };
   }
-
-  /**
-   * A semi-generic way to handle multiple lists. Matches
-   * the IDs of the droppable container to the names of the
-   * source arrays stored in the state.
-   */
-  id2List = {
-    droppable: 'items',
-    droppable2: 'selected'
-  };
-
-  getList = id => this.state[this.id2List[id]];
 
   onDragEnd = result => {
     const { source, destination } = result;
+    console.log(result)
 
     // dropped outside the list
     if (!destination) {
       return;
     }
-
+    const itinerary = this.props.fetchItineraryReducer.itinerary || []
     if (source.droppableId === destination.droppableId) {
       const items = reorder(
-        this.getList(source.droppableId),
+        itinerary,
         source.index,
         destination.index
       );
-
+      console.log(items)
       let state = { items };
 
       if (source.droppableId === 'droppable2') {
         state = { selected: items };
       }
 
-      this.setState(state);
+      console.log(9999999)
+      console.log(state)
     } else {
+      const searchList = this.props.searchReducer.results
       const result = move(
-        this.getList(source.droppableId),
-        this.getList(destination.droppableId),
+        searchList,
+        itinerary,
         source,
         destination
       );
-
-      this.setState({
+      console.log(123123123)
+      console.log({
         items: result.droppable,
         selected: result.droppable2
-      });
+      })
     }
-    console.log(this.state)
   }
 
   render () {
+    console.log(this.props)
     return (
       <div>
         <Grid padded>
           <Grid.Row columns={2}>
             <DragDropContext onDragEnd={this.onDragEnd}>
-              <Grid.Column textAlign='center'>
-                <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
-                    <Menu fluid vertical className='grid_menu'>
-                      <Card.Group centered className='card_group'>
-                        <div ref={provided.innerRef}>
-                          {this.state.items.map((item, index) => (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}>
-                              {(provided, snapshot) => (
-                                <Ref innerRef={provided.innerRef}>
-                                  <Card
-                                    fluid
-                                    href='#card-example-link-card'
-                                    header={item.content}
-                                    meta='Friend'
-                                    description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-                                    className='card_margin'
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                  />
-                                </Ref>
-                              )}
-                            </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      </Card.Group>
-                    </Menu>
-                  )}
-                </Droppable>
-              </Grid.Column>
-              <Grid.Column textAlign='center'>
-                <Droppable droppableId="droppable2">
-                  {(provided, snapshot) => (
-                    <Menu fluid vertical className='grid_menu'>
-                      <Card.Group centered className='card_group'>
-                        <div ref={provided.innerRef}>
-                          {this.state.selected.map((item, index) => (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}>
-                              {(provided, snapshot) => (
-                                <Ref innerRef={provided.innerRef}>
-                                  <Card
-                                    fluid
-                                    href='#card-example-link-card'
-                                    header={item.content}
-                                    meta='Friend'
-                                    description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-                                    className='card_margin'
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                  />
-                                </Ref>
-                              )}
-                            </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      </Card.Group>
-                    </Menu>
-                  )}
-                </Droppable>
-              </Grid.Column>
+              <MyItinerary/>
+              <SearchResults/>
             </DragDropContext>
           </Grid.Row>
         </Grid>
@@ -201,4 +103,4 @@ class EditItinerary extends Component {
   )}
 }
 
-export default EditItinerary
+export default connect(mapStateToProps, mapDispatchToProps)(EditItinerary)
