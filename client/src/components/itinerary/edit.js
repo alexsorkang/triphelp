@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Grid, Menu, Card, Ref } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
-import MyItinerary from './new/my_itinerary'
-import SearchResults from './new/search_results'
+import MyItinerary from './components/my_itinerary'
+import SearchResults from './components/search_results'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Map from './new/map'
+import Map from './components/map'
 import { connect } from 'react-redux';
 import { editItinerary, fetchItinerary } from '../../actions/itinerary';
 
@@ -48,7 +48,7 @@ class EditItinerary extends Component {
     if (!destination) {
       return;
     }
-    const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
+    const itinerary = this.props.fetchItineraryReducer.itinerary || []
     if (source.droppableId === 'droppable' && destination.droppableId === 'droppable') {
       const items = reorder(
         itinerary,

@@ -49,7 +49,7 @@ export const fetchItinerary = (itinerary) => {
         id: `item-${k + offset}`,
         name: `item ${k + offset}`
       }));
-    const a = getItems(10)
+    const a = [{name: 'section-1', items: getItems(5)}, {name: 'section-2', items: getItems(5,5)}, {name: 'section-3', items: getItems(5,10)}]
     dispatch(request(a))
 
     // itineraryService.my_itineraries()
