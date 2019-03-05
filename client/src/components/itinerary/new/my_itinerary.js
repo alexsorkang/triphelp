@@ -41,7 +41,7 @@ class MyItinerary extends Component {
                         <Ref innerRef={provided.innerRef}>
                           <Card
                             fluid
-                            href='#card-example-link-card'
+                            href={item.id}
                             header={item.name}
                             meta='Friend'
                             description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'

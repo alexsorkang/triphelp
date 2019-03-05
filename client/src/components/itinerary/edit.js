@@ -18,29 +18,22 @@ const mapDispatchToProps = dispatch => ({
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
+  const [removed] = list.splice(startIndex, 1);
+  list.splice(endIndex, 0, removed);
+  return list
 };
 
 /**
  * Moves an item from one list to another list.
  */
 const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
+  // this sourceclone is a workaround to clone objects within arrays
+  // this will work as long as we dont have functions in the objects
+  const sourceClone = JSON.parse(JSON.stringify(source))
   const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
-  return result;
+  removed.id = 'clone-' + removed.id + Date.now()
+  destination.splice(droppableDestination.index, 0, removed);
+  return destination
 };
 
 class EditItinerary extends Component {
@@ -62,10 +55,7 @@ class EditItinerary extends Component {
         source.index,
         destination.index
       );
-      console.log(1)
-      dragged = items
-      console.log(dragged)
-      this.props.editItinerary(dragged)
+      // this.props.editItinerary(dragged)
     } else if (source.droppableId === 'droppable2' && destination.droppableId === 'droppable') {
       const searchList = this.props.searchReducer.results
       const result = move(
@@ -74,11 +64,9 @@ class EditItinerary extends Component {
         source,
         destination
       );
-      console.log(2)
-      dragged = result.droppable 
-      console.log(dragged)
-      this.props.editItinerary(dragged)
+      // this.props.editItinerary(result)
     }
+    console.log(this.props)
   }
 
   render () {
