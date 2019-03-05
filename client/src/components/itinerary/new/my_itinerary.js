@@ -24,7 +24,7 @@ class MyItinerary extends Component {
   }
 
   render () {
-    const items = this.props.fetchItineraryReducer.itinerary || []
+    const items = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
     return (
       <Grid.Column textAlign='center'>
         <Droppable droppableId="droppable">
@@ -42,7 +42,7 @@ class MyItinerary extends Component {
                           <Card
                             fluid
                             href='#card-example-link-card'
-                            header={item.content}
+                            header={item.name}
                             meta='Friend'
                             description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
                             className='card_margin'

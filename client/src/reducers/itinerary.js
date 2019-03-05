@@ -1,4 +1,4 @@
-export const itineraryReducer = (state = [], action) => {
+export const itinerariesReducer = (state = [], action) => {
   switch (action.type) {
   case 'MY_ITINERARIES':
     return action

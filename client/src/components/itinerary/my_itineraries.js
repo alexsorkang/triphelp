@@ -19,6 +19,7 @@ class MyItineraries extends Component {
 
   itineraries () {
     const my_itineraries = this.props.itinerariesReducer
+    console.log(this.props)
     if (my_itineraries.itineraries) {
       return my_itineraries.itineraries.map(item => (
         <Table.Row key={item.name}>
@@ -26,7 +27,7 @@ class MyItineraries extends Component {
           <Table.Cell>Approved</Table.Cell>
           <Table.Cell>Jamie was not interested in purchasing our product.</Table.Cell>
           <Table.Cell>
-            <Button icon as={Link} to={'/itinerary/' + item.id} floated='right' basic color='grey'>
+            <Button icon as={Link} to={'/itinerary/edit/' + item.id} floated='right' basic color='grey'>
               <Icon name='edit' />
             </Button>
           </Table.Cell>

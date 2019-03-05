@@ -30,21 +30,20 @@ class SearchResults extends Component {
     if (status === 'SEARCH') {
       return (<Segment placeholder><Loader active inline='centered' /></Segment>)
     } else if (status === 'SEARCH_SUCCESS') {
-      console.log(search.results)
       const cards = search.results.map((item, index) => (
         <Draggable
-          key={item}
-          draggableId={item}
+          key={item.id}
+          draggableId={item.id}
           index={index}>
           {(provided, snapshot) => (
             <Ref innerRef={provided.innerRef}>
               <Card
-                fluid key={item} className='card_margin'
+                fluid key={item.id} className='card_margin'
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
                 <Card.Content>
-                  <Card.Header>{item}</Card.Header>
+                  <Card.Header>{item.name}</Card.Header>
                   <Card.Meta>this is sample meta</Card.Meta>
                   <Card.Description>
                     this is sample description

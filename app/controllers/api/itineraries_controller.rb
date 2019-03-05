@@ -21,8 +21,8 @@ class Api::ItinerariesController < ApplicationController
     @client = GooglePlaces::Client.new(Rails.application.credentials.google[:secret_key])
     # first = @client.spots_by_query(params, :types => ['restaurant'], :multipage => true)
     first = @client.spots_by_query(query, :types => ['restaurant'])
-    search_names = first.pluck(:name)
-    render json: search_names.to_json
+    # search_names = first
+    render json: first.to_json
     # second = @client.spots_by_pagetoken(first[-1].nextpagetoken)
   end
 end

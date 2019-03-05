@@ -23,7 +23,6 @@ export const myItineraries = (email, password) => {
 
 export const editItinerary = (itinerary) => {
   return dispatch => {
-    console.log(itinerary)
     dispatch(request(itinerary))
 
     // itineraryService.my_itineraries()
@@ -48,7 +47,7 @@ export const fetchItinerary = (itinerary) => {
     const getItems = (count, offset = 0) =>
       Array.from({ length: count }, (v, k) => k).map(k => ({
         id: `item-${k + offset}`,
-        content: `item ${k + offset}`
+        name: `item ${k + offset}`
       }));
     const a = getItems(10)
     dispatch(request(a))

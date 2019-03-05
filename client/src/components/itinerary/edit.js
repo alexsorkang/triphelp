@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
+
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -49,29 +50,23 @@ class EditItinerary extends Component {
 
   onDragEnd = result => {
     const { source, destination } = result;
-    console.log(result)
-
+    let dragged;
     // dropped outside the list
     if (!destination) {
       return;
     }
-    const itinerary = this.props.fetchItineraryReducer.itinerary || []
-    if (source.droppableId === destination.droppableId) {
+    const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
+    if (source.droppableId === 'droppable' && destination.droppableId === 'droppable') {
       const items = reorder(
         itinerary,
         source.index,
         destination.index
       );
-      console.log(items)
-      let state = { items };
-
-      if (source.droppableId === 'droppable2') {
-        state = { selected: items };
-      }
-
-      console.log(9999999)
-      console.log(state)
-    } else {
+      console.log(1)
+      dragged = items
+      console.log(dragged)
+      this.props.editItinerary(dragged)
+    } else if (source.droppableId === 'droppable2' && destination.droppableId === 'droppable') {
       const searchList = this.props.searchReducer.results
       const result = move(
         searchList,
@@ -79,16 +74,14 @@ class EditItinerary extends Component {
         source,
         destination
       );
-      console.log(123123123)
-      console.log({
-        items: result.droppable,
-        selected: result.droppable2
-      })
+      console.log(2)
+      dragged = result.droppable 
+      console.log(dragged)
+      this.props.editItinerary(dragged)
     }
   }
 
   render () {
-    console.log(this.props)
     return (
       <div>
         <Grid padded>
