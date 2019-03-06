@@ -26,14 +26,14 @@ class MyItinerary extends Component {
 
   render () {
     const itinerary = this.props.fetchItineraryReducer.itinerary || []
-    // console.log(itinerary[0].name)
+
+    console.log(itinerary)
     // console.log(itinerary[0].items)
     return (
       <Grid.Column textAlign='center'>
-        {itinerary.map((section) => (
-          <Section section={section} />
-          )
-        )}
+        {itinerary.map((section, index) => (
+          <Section key={section.name+index} section={section} />
+        ))}
       </Grid.Column>
     )
   }

@@ -7,6 +7,7 @@ import { editItinerary, fetchItinerary } from '../../../../actions/itinerary';
 
 
 class Section extends Component {
+
   render() {
     const section = this.props.section
     // console.log(section)
@@ -36,7 +37,7 @@ class Section extends Component {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}>
                           <Table.Cell>{item.name}</Table.Cell>
-                          <Table.Cell>{item.id}</Table.Cell>
+                          <Table.Cell></Table.Cell>
                           <Table.Cell></Table.Cell>
                         </Table.Row>
 
@@ -53,6 +54,8 @@ class Section extends Component {
           </div>
         )}
       </Droppable>
+        
+
     )
   }
 };
