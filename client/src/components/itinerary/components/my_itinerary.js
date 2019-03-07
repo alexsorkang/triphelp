@@ -35,7 +35,7 @@ class MyItinerary extends Component {
                         fixed 
                         singleLine 
                         selectable 
-                        color='red' 
+                        color='grey' 
                         {...provided.draggableProps} 
                         {...provided.dragHandleProps}>
                         <Table.Header>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Loader, Segment, Icon, Header, Ref } from 'semantic-ui-react'
+import { Grid, Menu, Card, Loader, Segment, Icon, Header, Ref, Table } from 'semantic-ui-react'
 import './grid_column.css'
 import SearchBar from '../../search_bar/search_bar'
 // import SearchButtons from './card/search_buttons'
@@ -46,7 +46,7 @@ class SearchResults extends Component {
           )}
         </Draggable>)
       )
-      return (<Droppable droppableId="search">
+      return (<Droppable droppableId="search" type={`droppableSubItem`}>
                 {(provided, snapshot) => (
                   <div ref={provided.innerRef}>
                     <Menu fluid vertical className='grid_menu'>

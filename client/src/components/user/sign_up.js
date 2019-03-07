@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment, Container } from 'semantic-ui-react'
-import axios from 'axios'
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+// import axios from 'axios'
 import { connect } from 'react-redux';
 import { signUp } from '../../actions/user';
 

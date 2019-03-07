@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './home.css';
 // import {Header, Icon, Segment, Grid} from 'semantic-ui-react'
-import SearchBar from '../search_bar/search_bar'
-import UserHeader from '../layout/user_header'
-import Helmet from 'react-helmet';
+// import SearchBar from '../search_bar/search_bar'
+// import UserHeader from '../layout/user_header'
+// import Helmet from 'react-helmet';
 
 class Home extends Component {
   componentDidMount() {

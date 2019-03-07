@@ -20,20 +20,7 @@ const reorder = (list, startIndex, endIndex) => {
   const [removed] = list.splice(startIndex, 1);
   list.splice(endIndex, 0, removed);
   return list
-};
-
-/**
- * Moves an item from one list to another list.
- */
-// const move = (source, destination, droppableSource, droppableDestination) => {
-//   // this sourceclone is a workaround to clone objects within arrays
-//   // this will work as long as we dont have functions in the objects
-//   const sourceClone = JSON.parse(JSON.stringify(source))
-//   const [removed] = sourceClone.splice(droppableSource.index, 1);
-//   removed.id = 'clone-' + removed.id + Date.now()
-//   destination.splice(droppableDestination.index, 0, removed);
-//   return destination
-// };
+}
 
 class EditItinerary extends Component {
 
@@ -47,11 +34,11 @@ class EditItinerary extends Component {
     const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
 
     if (destination.droppableId === 'itinerary') {
+      // moving sections
       reorder(itinerary, source.index, destination.index)
       this.props.editItinerary(itinerary)
-    } 
-    else if (type === 'droppableSubItem') {
-
+    } else if (type === 'droppableSubItem' && destination.droppableId !== 'itinerary' && source.droppableId !== 'search') {
+      // moving sub items from myItinerary droppable
       const itemSubItemMap = itinerary.reduce((acc, item) => {
         acc[item.name] = item.items;
         return acc;
@@ -75,26 +62,20 @@ class EditItinerary extends Component {
         })
         this.props.editItinerary(newItinerary)
       }
+    } else if (destination.droppableId !== 'search') {
+      // moving items from search to itinerary
+      const itemSubItemMap = itinerary.reduce((acc, item) => {
+        acc[item.name] = item.items;
+        return acc;
+      }, {})
+      const destSubItems = itemSubItemMap[destination.droppableId]
+      const searchList = this.props.searchReducer.results
+      const sourceClone = JSON.parse(JSON.stringify(searchList))
+      const [removed] = sourceClone.splice(source.index, 1)
+      removed.id = 'clone-' + removed.id + Date.now()
+      destSubItems.splice(destination.index, 0, removed)
+      this.props.editItinerary(itinerary)
     }
-
-    // } else if (source.droppableId === 'droppable' && destination.droppableId === 'droppable') {
-    //   const items = reorder(
-    //     itinerary,
-    //     source.index,
-    //     destination.index
-    //   );
-    //   // this.props.editItinerary(dragged)
-    // } else if (source.droppableId === 'droppable2' && destination.droppableId === 'droppable') {
-    //   const searchList = this.props.searchReducer.results
-    //   const result = move(
-    //     searchList,
-    //     itinerary,
-    //     source,
-    //     destination
-    //   );
-    //   // this.props.editItinerary(result)
-    // }
-    // console.log(this.props)
   }
 
   render () {
