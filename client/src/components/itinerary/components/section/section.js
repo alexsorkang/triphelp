@@ -13,9 +13,11 @@ class Section extends Component {
     // console.log(section)
     console.log(section)
     return (
-      <Droppable droppableId="droppable">
+      <Draggable droppableId="droppable">
         {(provided, snapshot) => (
           <div ref={provided.innerRef}>
+
+
             <Table color='red' key={section.name}>
               <Table.Header>
                 <Table.Row>
@@ -53,7 +55,7 @@ class Section extends Component {
             </Table>
           </div>
         )}
-      </Droppable>
+      </Draggable>
         
 
     )

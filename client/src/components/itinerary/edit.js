@@ -42,31 +42,67 @@ class EditItinerary extends Component {
   }
 
   onDragEnd = result => {
-    const { source, destination } = result;
-    let dragged;
+    const { source, destination, type } = result;
+    console.log(result)
+    let dragged
+    let items;
     // dropped outside the list
     if (!destination) {
-      return;
+      return
     }
     const itinerary = this.props.fetchItineraryReducer.itinerary || []
-    if (source.droppableId === 'droppable' && destination.droppableId === 'droppable') {
-      const items = reorder(
-        itinerary,
-        source.index,
-        destination.index
-      );
-      // this.props.editItinerary(dragged)
-    } else if (source.droppableId === 'droppable2' && destination.droppableId === 'droppable') {
-      const searchList = this.props.searchReducer.results
-      const result = move(
-        searchList,
-        itinerary,
-        source,
-        destination
-      );
-      // this.props.editItinerary(result)
+    console.log(itinerary)
+
+    if (destination.droppableId === 'itinerary') {
+      items = reorder(itinerary, source.index, destination.index)
+    } 
+    else if (type === 'droppableSubItem') {
+
+      const itemSubItemMap = itinerary.reduce((acc, item) => {
+        acc[item.name] = item.items;
+        return acc;
+      }, {})
+      const sourceSubItems = itemSubItemMap[source.droppableId]
+      const destSubItems = itemSubItemMap[destination.droppableId]
+      if (source.droppableId === destination.droppableId) {
+        reorder(sourceSubItems, source.index, destination.index)
+      } else {
+        console.log(sourceSubItems)
+        const [removed] = sourceSubItems.splice(source.index, 1);
+        console.log(sourceSubItems)
+        destSubItems.splice(destination.index, 0, removed);
+        let newItinerary = itinerary
+        newItinerary = newItinerary.map(item => {
+          if (item.id === source.droppableId) {
+            item.items = sourceSubItems
+          } else if (item.id === destination.droppableId) {
+            item.items = destSubItems
+          }
+          return item;
+        })
+        this.props.editItinerary(newItinerary)
+      }
     }
-    console.log(this.props)
+    console.log(itinerary)
+
+    // } else if (source.droppableId === 'droppable' && destination.droppableId === 'droppable') {
+    //   const items = reorder(
+    //     itinerary,
+    //     source.index,
+    //     destination.index
+    //   );
+    //   // this.props.editItinerary(dragged)
+    // } else if (source.droppableId === 'droppable2' && destination.droppableId === 'droppable') {
+    //   const searchList = this.props.searchReducer.results
+    //   const result = move(
+    //     searchList,
+    //     itinerary,
+    //     source,
+    //     destination
+    //   );
+    //   // this.props.editItinerary(result)
+    // }
+    // console.log(this.props)
   }
 
   render () {

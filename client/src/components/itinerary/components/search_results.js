@@ -54,7 +54,7 @@ class SearchResults extends Component {
           )}
         </Draggable>)
       )
-      return (<Droppable droppableId="droppable2">
+      return (<Droppable droppableId="search">
                 {(provided, snapshot) => (
                   <div ref={provided.innerRef}>
                     <Menu fluid vertical className='grid_menu'>
