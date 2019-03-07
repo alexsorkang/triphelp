@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Header, Segment, Button, Grid, Icon } from 'semantic-ui-react'
+import { Header, Segment, Grid } from 'semantic-ui-react'
 import './layout.css'
 import SearchBar from '../search_bar/search_bar'
 import UserHeader from './user_header'
-import { Link } from 'react-router-dom'
 
 class LayoutHeader extends Component {
   render () {

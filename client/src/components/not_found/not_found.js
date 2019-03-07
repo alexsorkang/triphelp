@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button, Form } from 'semantic-ui-react'
+import { Container, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 class NotFound extends Component {

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Ref } from 'semantic-ui-react'
-// import { Link } from 'react-router-dom'
+import { Grid } from 'semantic-ui-react'
 import MyItinerary from './components/my_itinerary'
 import SearchResults from './components/search_results'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Map from './components/map'
+import { DragDropContext } from 'react-beautiful-dnd';
+// import Map from './components/map'
 import { connect } from 'react-redux';
-import { editItinerary, fetchItinerary } from '../../actions/itinerary';
+import { editItinerary } from '../../actions/itinerary';
 
 const mapStateToProps = state => ({
   ...state
@@ -26,35 +25,30 @@ const reorder = (list, startIndex, endIndex) => {
 /**
  * Moves an item from one list to another list.
  */
-const move = (source, destination, droppableSource, droppableDestination) => {
-  // this sourceclone is a workaround to clone objects within arrays
-  // this will work as long as we dont have functions in the objects
-  const sourceClone = JSON.parse(JSON.stringify(source))
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-  removed.id = 'clone-' + removed.id + Date.now()
-  destination.splice(droppableDestination.index, 0, removed);
-  return destination
-};
+// const move = (source, destination, droppableSource, droppableDestination) => {
+//   // this sourceclone is a workaround to clone objects within arrays
+//   // this will work as long as we dont have functions in the objects
+//   const sourceClone = JSON.parse(JSON.stringify(source))
+//   const [removed] = sourceClone.splice(droppableSource.index, 1);
+//   removed.id = 'clone-' + removed.id + Date.now()
+//   destination.splice(droppableDestination.index, 0, removed);
+//   return destination
+// };
 
 class EditItinerary extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   onDragEnd = result => {
-    const { source, destination, type } = result;
-    console.log(result)
-    let dragged
-    let items;
+    const { source, destination, type } = result
+    let newItinerary
     // dropped outside the list
     if (!destination) {
       return
     }
-    const itinerary = this.props.fetchItineraryReducer.itinerary || []
-    console.log(itinerary)
+    const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
 
     if (destination.droppableId === 'itinerary') {
-      items = reorder(itinerary, source.index, destination.index)
+      reorder(itinerary, source.index, destination.index)
+      this.props.editItinerary(itinerary)
     } 
     else if (type === 'droppableSubItem') {
 
@@ -66,12 +60,11 @@ class EditItinerary extends Component {
       const destSubItems = itemSubItemMap[destination.droppableId]
       if (source.droppableId === destination.droppableId) {
         reorder(sourceSubItems, source.index, destination.index)
+        this.props.editItinerary(itinerary)
       } else {
-        console.log(sourceSubItems)
         const [removed] = sourceSubItems.splice(source.index, 1);
-        console.log(sourceSubItems)
         destSubItems.splice(destination.index, 0, removed);
-        let newItinerary = itinerary
+        newItinerary = itinerary
         newItinerary = newItinerary.map(item => {
           if (item.id === source.droppableId) {
             item.items = sourceSubItems
@@ -83,7 +76,6 @@ class EditItinerary extends Component {
         this.props.editItinerary(newItinerary)
       }
     }
-    console.log(itinerary)
 
     // } else if (source.droppableId === 'droppable' && destination.droppableId === 'droppable') {
     //   const items = reorder(

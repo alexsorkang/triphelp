@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Loader, Segment, Icon, Header, Button, Ref } from 'semantic-ui-react'
+import { Grid, Menu, Card, Loader, Segment, Icon, Header, Ref } from 'semantic-ui-react'
 import './grid_column.css'
 import SearchBar from '../../search_bar/search_bar'
-import SearchButtons from './card/search_buttons'
+// import SearchButtons from './card/search_buttons'
 import { connect } from 'react-redux';
 import { editItinerary } from '../../../actions/itinerary';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
@@ -16,14 +16,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class SearchResults extends Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   items: getItems(10),
-    //   selected: getItems(5, 10)
-    // };
-  }
-
   search_results () {
     const search = this.props.searchReducer
     const status = search.type

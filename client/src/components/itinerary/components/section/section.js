@@ -13,51 +13,36 @@ class Section extends Component {
     // console.log(section)
     console.log(section)
     return (
-      <Draggable droppableId="droppable">
-        {(provided, snapshot) => (
-          <div ref={provided.innerRef}>
-
-
-            <Table color='red' key={section.name}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>{section.name}</Table.HeaderCell>
-                  <Table.HeaderCell></Table.HeaderCell>
-                  <Table.HeaderCell></Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {section.items.map((item, index) => (
-                  <Draggable
-                    key={item.id}
-                    draggableId={item.id}
-                    index={index}>
-                    {(provided, snapshot) => (
-                      <Ref innerRef={provided.innerRef}>
-
-                        <Table.Row 
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}>
-                          <Table.Cell>{item.name}</Table.Cell>
-                          <Table.Cell></Table.Cell>
-                          <Table.Cell></Table.Cell>
-                        </Table.Row>
-
-
-
-                      </Ref>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </Table.Body>
-
-            </Table>
-          </div>
-        )}
-      </Draggable>
-        
-
+      <Table color='red' key={section.name}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>{section.name}</Table.HeaderCell>
+            <Table.HeaderCell></Table.HeaderCell>
+            <Table.HeaderCell></Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {section.items.map((item, index) => (
+            <Draggable
+              key={item.id}
+              draggableId={item.id}
+              index={index}>
+              {(provided, snapshot) => (
+                <Ref innerRef={provided.innerRef}>
+                  <Table.Row 
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                    <Table.Cell>{item.name}</Table.Cell>
+                    <Table.Cell></Table.Cell>
+                    <Table.Cell></Table.Cell>
+                  </Table.Row>
+                </Ref>
+              )}
+            </Draggable>
+          ))}
+          {provided.placeholder}
+        </Table.Body>
+      </Table>
     )
   }
 };

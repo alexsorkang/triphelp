@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Ref, Segment, Table } from 'semantic-ui-react'
+import { Grid, Ref, Table } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
@@ -15,21 +15,7 @@ const mapDispatchToProps = dispatch => ({
   fetchItinerary: (itinerary) => dispatch(fetchItinerary(itinerary))
 })
 
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-  // styles we need to apply on draggables
-  ...draggableStyle
-})
-
 class MyItinerary extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.fetchItinerary()
   }
@@ -62,28 +48,23 @@ class MyItinerary extends Component {
                         <Droppable droppableId={section.name} type={`droppableSubItem`}>
                           {(provided, snapshot) => (
                             <Ref innerRef={provided.innerRef}>
-                              <Table.Body {...provided.draggableProps}
-                                          // style={getItemStyle(
-                                          //   snapshot.isDragging,
-                                          //   provided.draggableProps.style
-                                          // )}
-                                          >
+                              <Table.Body {...provided.draggableProps}>
                                 {section.items.map((item, index) => (
                                   <Draggable key={item.id} draggableId={item.id} index={index}>
                                     {(provided, snapshot) => (
-                                      <Ref ref={provided.innerRef}>
-                                        <Table.Row 
+                                      <Ref innerRef={provided.innerRef}>
+                                        <Table.Row
                                           {...provided.draggableProps} 
                                           {...provided.dragHandleProps}>
                                           <Table.Cell>{item.name}</Table.Cell>
-                                          <Table.Cell>a</Table.Cell>
-                                          <Table.Cell>b</Table.Cell>
+                                          <Table.Cell></Table.Cell>
+                                          <Table.Cell></Table.Cell>
                                         </Table.Row>
                                       </Ref>
-                                      {provided.placeholder}
                                     )}
                                   </Draggable>
                                 ))}
+                                {provided.placeholder}
                               </Table.Body>
                             </Ref>
                           )}
