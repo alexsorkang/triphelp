@@ -24,6 +24,15 @@ export const editItineraryReducer = (state = [], action) => {
   }
 }
 
+export const editModeReducer = (state = 'view', action) => {
+  switch (action.type) {
+  case 'EDIT_MODE':
+    return action.mode
+  default:
+    return state
+  }
+}
+
 export const fetchItineraryReducer = (state = [], action) => {
   switch (action.type) {
   case 'FETCH_ITINERARY':

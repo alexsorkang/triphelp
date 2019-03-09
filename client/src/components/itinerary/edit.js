@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Header, Container } from 'semantic-ui-react'
 import MyItinerary from './components/my_itinerary'
+import EditHeader from './edit/edit_header'
 import SearchResults from './components/search_results'
 import { DragDropContext } from 'react-beautiful-dnd';
 // import Map from './components/map'
@@ -82,24 +83,7 @@ class EditItinerary extends Component {
     return (
       <div>
         <Grid padded>
-          <Grid.Row columns={2}>
-            <Grid.Column>
-              <Header
-                as='h2'
-                content='Your Itinerary'
-                subheader='edit your current itinerary'
-              >
-              </Header>
-            </Grid.Column>
-            <Grid.Column>
-              <Header
-                as='h2'
-                content='Search Results'
-                subheader='search places to add'
-              >
-              </Header>
-            </Grid.Column>
-          </Grid.Row>
+          <EditHeader/>
           <Grid.Row columns={2}>
             <DragDropContext onDragEnd={this.onDragEnd}>
               <MyItinerary/>

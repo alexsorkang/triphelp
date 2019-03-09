@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { searchReducer } from './search';
-import { itinerariesReducer, editItineraryReducer, fetchItineraryReducer } from './itinerary';
+import { itinerariesReducer, editItineraryReducer, editModeReducer, fetchItineraryReducer } from './itinerary';
 import { userReducer, getAllReducer } from './user'
 export default combineReducers({
   searchReducer,
@@ -8,5 +8,6 @@ export default combineReducers({
   getAllReducer,
   itinerariesReducer,
   editItineraryReducer,
-  fetchItineraryReducer
+  fetchItineraryReducer,
+  editModeReducer
 });

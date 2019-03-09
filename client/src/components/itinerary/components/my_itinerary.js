@@ -16,12 +16,21 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class MyItinerary extends Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+    this.state = {mode: 'view'}
+  }
+
   componentDidMount() {
     this.props.fetchItinerary()
   }
 
   handleClick(e) {
-    console.log(12312)
+    console.log(123)
+    this.setState({
+      mode: 'edit'
+    })
   }
 
   render () {

@@ -68,3 +68,12 @@ export const fetchItinerary = (itinerary) => {
   function success(itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', itinerary } }
   function failure(error) { return { type: 'FETCH_ITINERARY_ERROR', error } }
 }
+
+export const editMode = (mode) => {
+  return dispatch => {
+    dispatch(request(mode))
+  };
+
+  function request(mode) { return { type: 'EDIT_MODE', mode } }
+}
+
