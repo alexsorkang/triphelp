@@ -84,10 +84,20 @@ class EditItinerary extends Component {
         <Grid padded>
           <Grid.Row columns={2}>
             <Grid.Column>
-              spacingtest
+              <Header
+                as='h2'
+                content='Your Itinerary'
+                subheader='edit your current itinerary'
+              >
+              </Header>
             </Grid.Column>
             <Grid.Column>
-            spacing test
+              <Header
+                as='h2'
+                content='Search Results'
+                subheader='search places to add'
+              >
+              </Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={2}>

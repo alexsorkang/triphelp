@@ -20,6 +20,10 @@ class MyItinerary extends Component {
     this.props.fetchItinerary()
   }
 
+  handleClick(e) {
+    console.log(12312)
+  }
+
   render () {
     const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
     // <Button icon='trash alternate outline' size='small' basic color='red' />
@@ -43,7 +47,7 @@ class MyItinerary extends Component {
                           <Table.Row>
                             <Table.HeaderCell width={12}>{section.name}</Table.HeaderCell>
                             <Table.HeaderCell width={2}></Table.HeaderCell>
-                            <Table.HeaderCell width={2} textAlign='right'><Button icon='edit outline' size='small' basic color='grey' /></Table.HeaderCell>
+                            <Table.HeaderCell width={2} textAlign='right'><Button onClick={this.handleClick} icon='edit outline' size='small' basic color='grey' /></Table.HeaderCell>
                           </Table.Row>
                         </Table.Header>
                         <Droppable droppableId={section.name} type={`droppableSubItem`}>
