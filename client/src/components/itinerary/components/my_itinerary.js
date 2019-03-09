@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Ref, Table } from 'semantic-ui-react'
+import { Grid, Ref, Table, Button, Icon } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
@@ -22,6 +22,7 @@ class MyItinerary extends Component {
 
   render () {
     const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
+    // <Button icon='trash alternate outline' size='small' basic color='red' />
     return (
       <Grid.Column textAlign='center'>
         <Droppable droppableId="itinerary">
@@ -42,7 +43,7 @@ class MyItinerary extends Component {
                           <Table.Row>
                             <Table.HeaderCell width={12}>{section.name}</Table.HeaderCell>
                             <Table.HeaderCell width={2}></Table.HeaderCell>
-                            <Table.HeaderCell width={2}></Table.HeaderCell>
+                            <Table.HeaderCell width={2} textAlign='right'><Button icon='edit outline' size='small' basic color='grey' /></Table.HeaderCell>
                           </Table.Row>
                         </Table.Header>
                         <Droppable droppableId={section.name} type={`droppableSubItem`}>
@@ -58,7 +59,7 @@ class MyItinerary extends Component {
                                           {...provided.dragHandleProps}>
                                           <Table.Cell>{item.name}</Table.Cell>
                                           <Table.Cell></Table.Cell>
-                                          <Table.Cell></Table.Cell>
+                                          <Table.Cell textAlign='right'></Table.Cell>
                                         </Table.Row>
                                       </Ref>
                                     )}
@@ -69,6 +70,7 @@ class MyItinerary extends Component {
                             </Ref>
                           )}
                         </Droppable>
+                        
                       </Table>
                     </Ref>
                   )}

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Grid, Menu, Card, Loader, Segment, Icon, Header, Ref, Table } from 'semantic-ui-react'
+import { Grid, Menu, Card, Loader, Segment, Icon, Header, Ref } from 'semantic-ui-react'
 import './grid_column.css'
 import SearchBar from '../../search_bar/search_bar'
-// import SearchButtons from './card/search_buttons'
 import { connect } from 'react-redux';
 import { editItinerary } from '../../../actions/itinerary';
 import { Droppable, Draggable } from 'react-beautiful-dnd';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Header, Container } from 'semantic-ui-react'
 import MyItinerary from './components/my_itinerary'
 import SearchResults from './components/search_results'
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -37,7 +37,7 @@ class EditItinerary extends Component {
       // moving sections
       reorder(itinerary, source.index, destination.index)
       this.props.editItinerary(itinerary)
-    } else if (type === 'droppableSubItem' && destination.droppableId !== 'itinerary' && source.droppableId !== 'search') {
+    } else if (type === 'droppableSubItem' && destination.droppableId !== 'itinerary' && source.droppableId !== 'search' && destination.droppableId !== 'search') {
       // moving sub items from myItinerary droppable
       const itemSubItemMap = itinerary.reduce((acc, item) => {
         acc[item.name] = item.items;
@@ -82,6 +82,14 @@ class EditItinerary extends Component {
     return (
       <div>
         <Grid padded>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              spacingtest
+            </Grid.Column>
+            <Grid.Column>
+            spacing test
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Row columns={2}>
             <DragDropContext onDragEnd={this.onDragEnd}>
               <MyItinerary/>
