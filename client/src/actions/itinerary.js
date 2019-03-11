@@ -21,26 +21,6 @@ export const myItineraries = (email, password) => {
   function failure(error) { return { type: 'MY_ITINERARIES_ERROR', error } }
 }
 
-export const editItinerary = (itinerary) => {
-  return dispatch => {
-    dispatch(request(itinerary))
-
-    // itineraryService.my_itineraries()
-    //   .then(
-    //     itineraries => {
-    //       dispatch(success(itineraries));
-    //     },
-    //     error => {
-    //       dispatch(failure(error));
-    //     }
-    //   );
-  };
-
-  function request(itinerary) { return { type: 'EDIT_ITINERARY', itinerary } }
-  function success(itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', itinerary } }
-  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
-}
-
 export const fetchItinerary = (itinerary) => {
   return dispatch => {
 
@@ -51,7 +31,7 @@ export const fetchItinerary = (itinerary) => {
       }));
     const a = [{name: 'section-1', items: getItems(5)}, {name: 'section-2', items: getItems(5,5)}, {name: 'section-3', items: getItems(5,10)}]
     // const a = getItems(5)
-    dispatch(request(a))
+    dispatch(request('trip name', a))
 
     // itineraryService.my_itineraries()
     //   .then(
@@ -64,8 +44,8 @@ export const fetchItinerary = (itinerary) => {
     //   );
   };
 
-  function request(itinerary) { return { type: 'FETCH_ITINERARY', itinerary } }
-  function success(itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', itinerary } }
+  function request(name, itinerary) { return { type: 'FETCH_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', name, itinerary } }
   function failure(error) { return { type: 'FETCH_ITINERARY_ERROR', error } }
 }
 
@@ -77,3 +57,127 @@ export const editMode = (mode) => {
   function request(mode) { return { type: 'EDIT_MODE', mode } }
 }
 
+// all actions below handle all the edit actions
+// drag action
+// edit detail action
+// add/delete action
+
+export const dragItinerary = (name, itinerary) => {
+  return dispatch => {
+    dispatch(request(name, itinerary))
+
+    // itineraryService.my_itineraries()
+    //   .then(
+    //     itineraries => {
+    //       dispatch(success(itineraries));
+    //     },
+    //     error => {
+    //       dispatch(failure(error));
+    //     }
+    //   );
+  };
+
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+}
+
+export const editItinerary = (name, itinerary) => {
+  return dispatch => {
+    dispatch(request(name, itinerary))
+
+    // itineraryService.my_itineraries()
+    //   .then(
+    //     itineraries => {
+    //       dispatch(success(itineraries));
+    //     },
+    //     error => {
+    //       dispatch(failure(error));
+    //     }
+    //   );
+  };
+
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+}
+
+export const editSection = (name, itinerary) => {
+  return dispatch => {
+    dispatch(request(name, itinerary))
+
+    // itineraryService.my_itineraries()
+    //   .then(
+    //     itineraries => {
+    //       dispatch(success(itineraries));
+    //     },
+    //     error => {
+    //       dispatch(failure(error));
+    //     }
+    //   );
+  };
+
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+}
+
+export const editPlace = (name, itinerary) => {
+  return dispatch => {
+    dispatch(request(name, itinerary))
+
+    // itineraryService.my_itineraries()
+    //   .then(
+    //     itineraries => {
+    //       dispatch(success(itineraries));
+    //     },
+    //     error => {
+    //       dispatch(failure(error));
+    //     }
+    //   );
+  };
+
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+}
+
+export const addItinerary = (name, itinerary) => {
+  return dispatch => {
+    dispatch(request(name, itinerary))
+
+    // itineraryService.my_itineraries()
+    //   .then(
+    //     itineraries => {
+    //       dispatch(success(itineraries));
+    //     },
+    //     error => {
+    //       dispatch(failure(error));
+    //     }
+    //   );
+  };
+
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+}
+
+export const deleteItinerary = (name, itinerary) => {
+  return dispatch => {
+    dispatch(request(name, itinerary))
+
+    // itineraryService.my_itineraries()
+    //   .then(
+    //     itineraries => {
+    //       dispatch(success(itineraries));
+    //     },
+    //     error => {
+    //       dispatch(failure(error));
+    //     }
+    //   );
+  };
+
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+}

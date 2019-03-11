@@ -33,11 +33,11 @@ class EditItinerary extends Component {
       return
     }
     const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
-
+    const name = this.props.editItineraryReducer.name || this.props.fetchItineraryReducer.name || []
     if (destination.droppableId === 'itinerary') {
       // moving sections
       reorder(itinerary, source.index, destination.index)
-      this.props.editItinerary(itinerary)
+      this.props.editItinerary(name, itinerary)
     } else if (type === 'droppableSubItem' && destination.droppableId !== 'itinerary' && source.droppableId !== 'search' && destination.droppableId !== 'search') {
       // moving sub items from myItinerary droppable
       const itemSubItemMap = itinerary.reduce((acc, item) => {
@@ -48,7 +48,7 @@ class EditItinerary extends Component {
       const destSubItems = itemSubItemMap[destination.droppableId]
       if (source.droppableId === destination.droppableId) {
         reorder(sourceSubItems, source.index, destination.index)
-        this.props.editItinerary(itinerary)
+        this.props.editItinerary(name, itinerary)
       } else {
         const [removed] = sourceSubItems.splice(source.index, 1);
         destSubItems.splice(destination.index, 0, removed);
@@ -61,7 +61,7 @@ class EditItinerary extends Component {
           }
           return item;
         })
-        this.props.editItinerary(newItinerary)
+        this.props.editItinerary(name, newItinerary)
       }
     } else if (destination.droppableId !== 'search') {
       // moving items from search to itinerary
@@ -75,7 +75,7 @@ class EditItinerary extends Component {
       const [removed] = sourceClone.splice(source.index, 1)
       removed.id = 'clone-' + removed.id + Date.now()
       destSubItems.splice(destination.index, 0, removed)
-      this.props.editItinerary(itinerary)
+      this.props.editItinerary(name, itinerary)
     }
   }
 

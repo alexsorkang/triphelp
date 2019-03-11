@@ -33,7 +33,7 @@ export const editModeReducer = (state = 'view', action) => {
   }
 }
 
-export const fetchItineraryReducer = (state = [], action) => {
+export const fetchItineraryReducer = (state = {}, action) => {
   switch (action.type) {
   case 'FETCH_ITINERARY':
     return action
