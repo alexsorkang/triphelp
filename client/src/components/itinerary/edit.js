@@ -33,7 +33,7 @@ class EditItinerary extends Component {
       return
     }
     const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
-    const name = this.props.editItineraryReducer.name || this.props.fetchItineraryReducer.name || []
+    const name = this.props.editItineraryReducer.name || this.props.fetchItineraryReducer.name || ''
     if (destination.droppableId === 'itinerary') {
       // moving sections
       reorder(itinerary, source.index, destination.index)
@@ -86,7 +86,7 @@ class EditItinerary extends Component {
           <EditHeader/>
           <Grid.Row columns={2}>
             <DragDropContext onDragEnd={this.onDragEnd}>
-              <MyItinerary/>
+              <MyItinerary itineraryId={this.props.itineraryId}/>
               <SearchResults/>
             </DragDropContext>
           </Grid.Row>

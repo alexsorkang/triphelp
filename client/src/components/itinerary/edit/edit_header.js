@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { Grid, Header, Container, Button, Icon, Input } from 'semantic-ui-react'
+import { Grid, Header, Button, Icon, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { editMode } from '../../../actions/itinerary';
 
@@ -28,7 +28,7 @@ class EditHeader extends Component {
   }
 
   handleChange(e, {value}) {
-    console.log(value)
+    // console.log(value)
   }
 
   modeButton() {
@@ -66,7 +66,6 @@ class EditHeader extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <Grid.Row columns={2}>
         <Grid.Column>

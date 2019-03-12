@@ -21,8 +21,11 @@ export const myItineraries = (email, password) => {
   function failure(error) { return { type: 'MY_ITINERARIES_ERROR', error } }
 }
 
-export const fetchItinerary = (itinerary) => {
+export const fetchItinerary = (itinerary_id) => {
   return dispatch => {
+
+
+
 
     const getItems = (count, offset = 0) =>
       Array.from({ length: count }, (v, k) => k).map(k => ({
@@ -30,18 +33,24 @@ export const fetchItinerary = (itinerary) => {
         name: `item ${k + offset}`
       }));
     const a = [{name: 'section-1', items: getItems(5)}, {name: 'section-2', items: getItems(5,5)}, {name: 'section-3', items: getItems(5,10)}]
-    // const a = getItems(5)
+    // console.log(a)
+
+
+
+
+
     dispatch(request('trip name', a))
 
-    // itineraryService.my_itineraries()
-    //   .then(
-    //     itineraries => {
-    //       dispatch(success(itineraries));
-    //     },
-    //     error => {
-    //       dispatch(failure(error));
-    //     }
-    //   );
+
+    itineraryService.fetch_itinerary(itinerary_id)
+      .then(
+        itineraries => {
+          // dispatch(success(itineraries));
+        },
+        error => {
+          // dispatch(failure(error));
+        }
+      );
   };
 
   function request(name, itinerary) { return { type: 'FETCH_ITINERARY', name, itinerary } }

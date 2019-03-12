@@ -23,11 +23,10 @@ class MyItinerary extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchItinerary()
+    this.props.fetchItinerary(this.props.itineraryId)
   }
 
   handleClick(e) {
-    console.log(123)
     this.setState({
       mode: 'edit'
     })
