@@ -33,14 +33,14 @@ class MyItinerary extends Component {
   }
 
   render () {
-    const itinerary = this.props.editItineraryReducer.itinerary || this.props.fetchItineraryReducer.itinerary || []
+    const itinerary = this.props.fetchItineraryReducer.itinerary
     // <Button icon='trash alternate outline' size='small' basic color='red' />
     return (
       <Grid.Column textAlign='center'>
         <Droppable droppableId="itinerary">
           {(provided, snapshot) => (
             <div ref={provided.innerRef}>
-              {itinerary.map((section, index) => (
+              {itinerary.sections.map((section, index) => (
                 <Draggable key={section.name} draggableId={section.name} index={index}>
                   {(provided, snapshot) => (
                     <Ref innerRef={provided.innerRef}>
@@ -62,7 +62,7 @@ class MyItinerary extends Component {
                           {(provided, snapshot) => (
                             <Ref innerRef={provided.innerRef}>
                               <Table.Body {...provided.draggableProps}>
-                                {section.items.map((item, index) => (
+                                {section.places.map((item, index) => (
                                   <Draggable key={item.id} draggableId={item.id} index={index}>
                                     {(provided, snapshot) => (
                                       <Ref innerRef={provided.innerRef}>

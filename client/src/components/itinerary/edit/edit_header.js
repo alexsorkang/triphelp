@@ -50,7 +50,7 @@ class EditHeader extends Component {
 
   modeItineraryName() {
     const mode = this.props.editModeReducer
-    const name = this.props.editItineraryReducer.name || this.props.fetchItineraryReducer.name || ''
+    const name = this.props.fetchItineraryReducer.itinerary.name
     if (mode === 'edit') {
       return (
         <Input 

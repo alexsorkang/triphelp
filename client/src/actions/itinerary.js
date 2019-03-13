@@ -23,38 +23,19 @@ export const myItineraries = (email, password) => {
 
 export const fetchItinerary = (itinerary_id) => {
   return dispatch => {
-
-
-
-
-    const getItems = (count, offset = 0) =>
-      Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k + offset}`,
-        name: `item ${k + offset}`
-      }));
-    const a = [{name: 'section-1', items: getItems(5)}, {name: 'section-2', items: getItems(5,5)}, {name: 'section-3', items: getItems(5,10)}]
-    // console.log(a)
-
-
-
-
-
-    dispatch(request('trip name', a))
-
-
     itineraryService.fetch_itinerary(itinerary_id)
       .then(
         itineraries => {
-          // dispatch(success(itineraries));
+          dispatch(success(itineraries));
         },
         error => {
-          // dispatch(failure(error));
+          dispatch(failure(error));
         }
       );
   };
 
-  function request(name, itinerary) { return { type: 'FETCH_ITINERARY', name, itinerary } }
-  function success(name, itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', name, itinerary } }
+  function request(itinerary) { return { type: 'FETCH_ITINERARY', itinerary } }
+  function success(itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', itinerary } }
   function failure(error) { return { type: 'FETCH_ITINERARY_ERROR', error } }
 }
 
@@ -91,9 +72,9 @@ export const dragItinerary = (name, itinerary) => {
   function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
 }
 
-export const editItinerary = (name, itinerary) => {
+export const editItinerary = (itinerary) => {
   return dispatch => {
-    dispatch(request(name, itinerary))
+    dispatch(request(itinerary))
 
     // itineraryService.my_itineraries()
     //   .then(
@@ -106,8 +87,8 @@ export const editItinerary = (name, itinerary) => {
     //   );
   };
 
-  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
-  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
+  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', itinerary } }
+  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', itinerary } }
   function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
 }
 

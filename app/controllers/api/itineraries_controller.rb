@@ -6,8 +6,20 @@ class Api::ItinerariesController < ApplicationController
   end
 
   def show
-    @trip = Itinerary.find(params[:id])
-    render json: @trip.to_json
+    itinerary = Itinerary.includes(sections: :places).select(:name, :id, :section_order).where(id:params[:id]).first
+    @response = itinerary.as_json
+    sections = []
+    itinerary.sections.each do |section|
+      places = []
+      conv = section.as_json
+      section.places.each do |place|
+        places.push(place)
+      end
+      conv['places'] = places
+      sections.push(conv)
+    end
+    @response['sections'] = sections
+    render json: @response.to_json
   end
 
   def update
