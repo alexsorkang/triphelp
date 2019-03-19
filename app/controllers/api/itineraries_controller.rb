@@ -6,13 +6,13 @@ class Api::ItinerariesController < ApplicationController
   end
 
   def show
-    itinerary = Itinerary.includes(sections: :places).select(:name, :id, :section_order).where(id:params[:id]).first
+    itinerary = Itinerary.joins(sections: :places).select(:name, :id, :section_order).where(id:params[:id]).first
     @response = itinerary.as_json
     sections = []
-    itinerary.sections.each do |section|
+    itinerary.sections.find(itinerary.section_order).each do |section|
       places = []
       conv = section.as_json
-      section.places.each do |place|
+      section.places.find(section.place_order).each do |place|
         places.push(place)
       end
       conv['places'] = places
