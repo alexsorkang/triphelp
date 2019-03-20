@@ -58,12 +58,12 @@ class MyItinerary extends Component {
                             <Table.HeaderCell width={2} textAlign='right'><Button onClick={this.handleClick} icon='edit outline' size='small' basic color='grey' /></Table.HeaderCell>
                           </Table.Row>
                         </Table.Header>
-                        <Droppable droppableId={section.name} type={`droppableSubItem`}>
+                        <Droppable droppableId={`${section.id}`} type={`droppableSubItem`}>
                           {(provided, snapshot) => (
                             <Ref innerRef={provided.innerRef}>
                               <Table.Body {...provided.draggableProps}>
                                 {section.places.map((item, index) => (
-                                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                                  <Draggable key={item.id} draggableId={`${item.id}`} index={index}>
                                     {(provided, snapshot) => (
                                       <Ref innerRef={provided.innerRef}>
                                         <Table.Row

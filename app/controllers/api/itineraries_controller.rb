@@ -27,6 +27,18 @@ class Api::ItinerariesController < ApplicationController
     # render json: @trip.to_json
   end
 
+  def drag_place
+    # {"id"=>"3", "src"=>"5", "dest"=>"5", "src_order"=>["14", "13", "15"], "dest_order"=>["14", "13", "15"], place=>"1"
+    @trip = Itinerary.find(params[:id])
+    src = @trip.sections.find(params[:src])
+    place = src.places.find(params[:place])
+    place.update_attributes(section_id: params[:dest])
+    dest = @trip.sections.find(params[:dest])
+    src.update_attributes(place_order: params[:src_order])
+    dest.update_attributes(place_order: params[:dest_order])
+    render status: 200
+  end
+
   def search_results
     # query = 'Koreatown Los Angeles CA'
     query = params[:query]

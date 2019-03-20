@@ -3,7 +3,8 @@ import { authHeader } from '../_helpers/auth-header';
 
 export const itineraryService = {
     my_itineraries,
-    fetch_itinerary
+    fetch_itinerary,
+    drag_place
 };
 
 function my_itineraries() {
@@ -52,3 +53,49 @@ function fetch_itinerary(id) {
     return Promise.reject(error)
   })
 }
+
+function drag_place(id,src,dest,src_order,dest_order,place) {
+  const requestOptions = {
+      headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': authHeader()
+               }
+  };
+  const url = `/api/drag_place`
+  return axios.patch(url, {id,src,dest,src_order,dest_order,place}, requestOptions).then(response => {
+    console.log(response)
+    if (response.status === 200) {
+      return "SUCCESS"
+    } else {
+      console.log(response.error)
+      return Promise.reject(response.error)
+    }
+  }, 
+  error => {
+    console.log(error)
+    return Promise.reject(error)
+  })
+}
+
+
+// function signIn(email, password) {
+//     // curl -XPOST -H 'Content-Type: application/json' http://localhost:3001/login -d '{"user": {"email": "test@test.com", "password": "password" }}'
+//     const url = `/login`
+//     return axios.post(url, {'user': { email, password }})
+//       .then(response => {
+//         if (response.status === 200) {
+//           let store = JSON.stringify({email: response.data.email, auth: response.headers.authorization})
+//           localStorage.setItem('user', store);
+//           return store
+//         } else {
+//           signOut()
+//           window.location.reload(true)
+//           const error = response.error
+//           return Promise.reject(error);
+//         }
+//       }, error => {
+//         signOut()
+//         console.log(error)
+//         return Promise.reject(error);
+//     })
+// }

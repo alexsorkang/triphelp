@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
   	resources :itineraries
     get '/search_results', to: 'itineraries#search_results'
+    patch '/drag_place', to: 'itineraries#drag_place'
   end
 
 

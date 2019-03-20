@@ -52,24 +52,20 @@ export const editMode = (mode) => {
 // edit detail action
 // add/delete action
 
-export const dragItinerary = (name, itinerary) => {
+export const dragPlace = (itinerary_id,src,dest,src_order,dest_order,place) => {
   return dispatch => {
-    dispatch(request(name, itinerary))
+    dispatch(request())
+    itineraryService.drag_place(itinerary_id,src,dest,src_order,dest_order,place)
+      .then(
+        error => {
+          dispatch(failure(error));
+        }
+      );
 
-    // itineraryService.my_itineraries()
-    //   .then(
-    //     itineraries => {
-    //       dispatch(success(itineraries));
-    //     },
-    //     error => {
-    //       dispatch(failure(error));
-    //     }
-    //   );
   };
 
-  function request(name, itinerary) { return { type: 'EDIT_ITINERARY', name, itinerary } }
-  function success(name, itinerary) { return { type: 'EDIT_ITINERARY_SUCCESS', name, itinerary } }
-  function failure(error) { return { type: 'EDIT_ITINERARY_ERROR', error } }
+  function request() { return { type: 'DRAG_PLACE' } }
+  function failure(error) { return { type: 'DRAG_PLACE_ERROR', error } }
 }
 
 export const editItinerary = (itinerary) => {
