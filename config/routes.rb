@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   	resources :itineraries
     get '/search_results', to: 'itineraries#search_results'
     patch '/drag_place', to: 'itineraries#drag_place'
+    patch '/drag_section', to: 'itineraries#drag_section'
   end
 
 

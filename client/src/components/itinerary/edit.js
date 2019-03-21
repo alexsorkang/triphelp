@@ -6,7 +6,7 @@ import SearchResults from './components/search_results'
 import { DragDropContext } from 'react-beautiful-dnd';
 // import Map from './components/map'
 import { connect } from 'react-redux';
-import { editItinerary, fetchItinerary, dragPlace } from '../../actions/itinerary';
+import { editItinerary, fetchItinerary, dragPlace, dragSection } from '../../actions/itinerary';
 
 const mapStateToProps = state => ({
   ...state
@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   editItinerary: (itinerary) => dispatch(editItinerary(itinerary)),
   dragPlace: (id,src,dest,src_order, dest_order,place) => dispatch(dragPlace(id,src,dest,src_order,dest_order,place)),
+  dragSection: (id,order) => dispatch(dragSection(id,order)),
   fetchItinerary: (itinerary) => dispatch(fetchItinerary(itinerary))
 })
 
@@ -36,39 +37,23 @@ class EditItinerary extends Component {
     }
     const itinerary = this.props.fetchItineraryReducer.itinerary || []
     const name = this.props.fetchItineraryReducer.name || ''
-    console.log(itinerary)
     if (destination.droppableId === 'itinerary') {
       // moving sections
-      // reorder(itinerary, source.index, destination.index)
-      // this.props.editItinerary(name, itinerary)
+      // this one already changes the order in place
+      const [removed] = itinerary.section_order.splice(source.index, 1)
+      itinerary.section_order.splice(destination.index, 0, removed)
+      this.props.dragSection(this.props.itineraryId, itinerary.section_order)
     } else if (type === 'droppableSubItem' && destination.droppableId !== 'itinerary' && source.droppableId !== 'search' && destination.droppableId !== 'search') {
       // moving sub items from myItinerary droppable
+      // this one does not change order in place
       const itemSubItemMap = itinerary.sections.reduce((acc, item) => {
         acc[item.id] = item.place_order;
         return acc;
       }, {})
       const sourceSubItems = itemSubItemMap[source.droppableId]
       const destSubItems = itemSubItemMap[destination.droppableId]
-      // if (source.droppableId === destination.droppableId) {
       let order = reorder(sourceSubItems, destSubItems, source.index, destination.index)
       this.props.dragPlace(this.props.itineraryId, source.droppableId, destination.droppableId, order.src,order.dest,order.removed)
-      console.log(this.props.fetchItineraryReducer.itinerary.sections[0])
-      this.props.fetchItinerary(this.props.itineraryId)
-      console.log(this.props.fetchItineraryReducer.itinerary.sections[0])
-      // } else {
-        // const [removed] = sourceSubItems.splice(source.index, 1);
-        // destSubItems.splice(destination.index, 0, removed);
-        // // newItinerary = itinerary
-        // newItinerary = newItinerary.map(item => {
-        //   if (item.id === source.droppableId) {
-        //     item.items = sourceSubItems
-        //   } else if (item.id === destination.droppableId) {
-        //     item.items = destSubItems
-        //   }
-        //   return item;
-        // })
-        // this.props.editItinerary(newItinerary)
-      // }
     } else if (destination.droppableId !== 'search') {
       console.log(source, destination)
       // moving items from search to itinerary

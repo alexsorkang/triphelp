@@ -54,9 +54,12 @@ export const editMode = (mode) => {
 
 export const dragPlace = (itinerary_id,src,dest,src_order,dest_order,place) => {
   return dispatch => {
-    dispatch(request())
+    // dispatch(request())
     itineraryService.drag_place(itinerary_id,src,dest,src_order,dest_order,place)
       .then(
+        itineraries => {
+          dispatch(success(itineraries))
+        },
         error => {
           dispatch(failure(error));
         }
@@ -64,8 +67,28 @@ export const dragPlace = (itinerary_id,src,dest,src_order,dest_order,place) => {
 
   };
 
-  function request() { return { type: 'DRAG_PLACE' } }
-  function failure(error) { return { type: 'DRAG_PLACE_ERROR', error } }
+  // function request(itinerary) { return { type: 'FETCH_ITINERARY', itinerary } }
+  function success(itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', itinerary } }
+  function failure(error) { return { type: 'FETCH_ITINERARY_ERROR', error } }
+}
+
+export const dragSection = (itinerary_id,order) => {
+  return dispatch => {
+    // dispatch(request())
+    itineraryService.drag_section(itinerary_id,order)
+      .then(
+        itineraries => {
+          dispatch(success(itineraries))
+        },
+        error => {
+          dispatch(failure(error));
+        }
+      );
+
+  };
+
+  function success(itinerary) { return { type: 'FETCH_ITINERARY_SUCCESS', itinerary } }
+  function failure(error) { return { type: 'FETCH_ITINERARY_ERROR', error } }
 }
 
 export const editItinerary = (itinerary) => {

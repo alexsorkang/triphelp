@@ -6,20 +6,8 @@ class Api::ItinerariesController < ApplicationController
   end
 
   def show
-    itinerary = Itinerary.joins(sections: :places).select(:name, :id, :section_order).where(id:params[:id]).first
-    @response = itinerary.as_json
-    sections = []
-    itinerary.sections.find(itinerary.section_order).each do |section|
-      places = []
-      conv = section.as_json
-      section.places.find(section.place_order).each do |place|
-        places.push(place)
-      end
-      conv['places'] = places
-      sections.push(conv)
-    end
-    @response['sections'] = sections
-    render json: @response.to_json
+    response = Itinerary.itinerary_json(params[:id])
+    render json: response
   end
 
   def update
@@ -36,7 +24,15 @@ class Api::ItinerariesController < ApplicationController
     dest = @trip.sections.find(params[:dest])
     src.update_attributes(place_order: params[:src_order])
     dest.update_attributes(place_order: params[:dest_order])
-    render status: 200
+    response = Itinerary.itinerary_json(params[:id])
+    render json: response
+  end
+
+  def drag_section
+    @trip = Itinerary.find(params[:id])
+    @trip.update_attributes(section_order: params[:order])
+    response = Itinerary.itinerary_json(params[:id])
+    render json: response
   end
 
   def search_results

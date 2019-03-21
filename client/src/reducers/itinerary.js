@@ -46,13 +46,13 @@ export const fetchItineraryReducer = (state = {itinerary: {name: '', sections: [
   }
 }
 
-export const dragPlaceReducer = (state = [], action) => {
+export const dragItineraryReducer = (state = {itinerary: {name: '', sections: []}}, action) => {
   switch (action.type) {
-  case 'DRAG_PLACE':
+  case 'DRAG':
     return action
-  case 'DRAG_PLACE_SUCCESS':
+  case 'DRAG_SUCCESS':
     return action
-  case 'DRAG_PLACE_ERROR':
+  case 'DRAG_ERROR':
     return action
   default:
     return state

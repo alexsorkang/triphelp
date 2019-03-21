@@ -4,7 +4,8 @@ import { authHeader } from '../_helpers/auth-header';
 export const itineraryService = {
     my_itineraries,
     fetch_itinerary,
-    drag_place
+    drag_place,
+    drag_section
 };
 
 function my_itineraries() {
@@ -63,9 +64,30 @@ function drag_place(id,src,dest,src_order,dest_order,place) {
   };
   const url = `/api/drag_place`
   return axios.patch(url, {id,src,dest,src_order,dest_order,place}, requestOptions).then(response => {
-    console.log(response)
     if (response.status === 200) {
-      return "SUCCESS"
+      return response.data
+    } else {
+      console.log(response.error)
+      return Promise.reject(response.error)
+    }
+  }, 
+  error => {
+    console.log(error)
+    return Promise.reject(error)
+  })
+}
+
+function drag_section(id,order) {
+  const requestOptions = {
+      headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': authHeader()
+               }
+  };
+  const url = `/api/drag_section`
+  return axios.patch(url, {id,order}, requestOptions).then(response => {
+    if (response.status === 200) {
+      return response.data
     } else {
       console.log(response.error)
       return Promise.reject(response.error)
