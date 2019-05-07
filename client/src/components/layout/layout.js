@@ -4,9 +4,9 @@ import LayoutHeader from './layout_header'
 class Layout extends Component {
 
   header () {
-    if (window.location.pathname !== '/') {
+    // if (window.location.pathname !== '/') {
       return (<LayoutHeader/>)
-    }
+    // }
     return
   }
 
