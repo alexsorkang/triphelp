@@ -1,5 +1,11 @@
 # README
 
+#### List of things to do:
+<https://github.com/alexsorkang/triphelp/projects/1>
+
+#### Quick demo:
+![](demo.gif)
+
 #### Make sure you have the following (it should be safe to get the latest versions of all of the following):
 1. `Ruby ~v2.5`
 2. `npm > 5.2` (mine is 6.4.1)
